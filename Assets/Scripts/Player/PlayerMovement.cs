@@ -5,18 +5,18 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
-    [Header("Movement Setininging")]
-    [SerializeField] private float walkSpeed = 5f; //predkosc poruszania sie
-    [SerializeField] private float sprintSpeed = 8f;
+    [Header("Movement Settings")]
+    [SerializeField] private float walkSpeed = 5f; //predkosc zwyklego chodu
+    [SerializeField] private float sprintSpeed = 8f; //predkosc sprintu
 
-    [Header("Inputto")]
+    [Header("Input")]
     [SerializeField] private InputActionAsset playerControls;
 
     private Rigidbody rb;
     private InputAction moveAction;
     private InputAction sprintAction;
 
-    private Vector2 moveInput; //wektor odpowiadajacy za ruch na przestrzeni XZ, ruch na osi Y jest zablokowany
+    private Vector2 moveInput;
     private bool isSprinting;
 
     private void Awake()
@@ -29,9 +29,11 @@ public class PlayerMovement : MonoBehaviour
             enabled = false;
             return;
         }
+
         InputActionMap playerMap = playerControls.FindActionMap("Player", true);
-        moveAction = playerControls.FindActionMap("Player", true).FindAction("Move", true);
-        sprintAction = playerControls.FindActionMap("Player", true).FindAction("Move", true);
+
+        moveAction = playerMap.FindAction("Move", true);
+        sprintAction = playerMap.FindAction("Sprint", true);
     }
 
     private void OnEnable()
@@ -46,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
         sprintAction?.Disable();
 
         moveInput = Vector2.zero;
+        isSprinting = false;
 
         if (rb != null)
             rb.linearVelocity = Vector3.zero;
@@ -67,8 +70,7 @@ public class PlayerMovement : MonoBehaviour
             0f,
             moveInput.y
         );
-
-        direction = Vector3.ClampMagnitude(direction, 1f); //zwalniamy i wygladzamy ruch
+        direction = Vector3.ClampMagnitude(direction, 1f);
         float currentSpeed = isSprinting ? sprintSpeed : walkSpeed;
         rb.linearVelocity = direction * currentSpeed;
     }
