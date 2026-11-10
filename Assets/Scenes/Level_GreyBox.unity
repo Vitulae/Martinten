@@ -61043,10 +61043,11 @@ Transform:
   m_GameObject: {fileID: 1401526813}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -33, y: 1, z: -33}
+  m_LocalPosition: {x: -22.57, y: 1, z: -33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1608844480}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1401526819
@@ -61061,7 +61062,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdea38285a5e11648b174374bb1ce8f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  moveSpeed: 3
+  walkSpeed: 5
+  sprintSpeed: 8
   playerControls: {fileID: -944628639613478452, guid: bf1c078868ef5134cae234e5344cbd23, type: 3}
 --- !u!43 &1408552947
 Mesh:
@@ -67572,6 +67574,7 @@ GameObject:
   - component: {fileID: 1608844478}
   - component: {fileID: 1608844481}
   - component: {fileID: 1608844482}
+  - component: {fileID: 1608844483}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -67646,12 +67649,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1608844477}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -33, y: 17.12, z: -33}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 16.12, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1401526818}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &1608844481
 MonoBehaviour:
@@ -67711,6 +67714,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraFollow
   target: {fileID: 1401526818}
   smoothTime: 0.15
+--- !u!54 &1608844483
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1608844477}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 112
+  m_CollisionDetection: 1
 --- !u!43 &1613663514
 Mesh:
   m_ObjectHideFlags: 0
@@ -93790,7 +93820,6 @@ Mesh:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1608844480}
   - {fileID: 311056680}
   - {fileID: 407560619}
   - {fileID: 222607707}
