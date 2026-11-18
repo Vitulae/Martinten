@@ -10824,7 +10824,7 @@ GameObject:
   - component: {fileID: 222607707}
   - component: {fileID: 222607706}
   m_Layer: 0
-  m_Name: parter - jak zwykle czegos zapomnialem_0
+  m_Name: LvlDesign_Schemat_Parter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15869,7 +15869,7 @@ GameObject:
   - component: {fileID: 407560619}
   - component: {fileID: 407560618}
   m_Layer: 0
-  m_Name: "Cwel pi\u0119tro szare_0"
+  m_Name: LvlDesign_Schemat_Pietro
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
