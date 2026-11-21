@@ -1,7 +1,6 @@
 
-using TMPro;
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 public class GameModeController : MonoBehaviour
 {
@@ -12,10 +11,7 @@ public class GameModeController : MonoBehaviour
     [SerializeField] private GameObject battleRoot;
 
     [Header("Battle UI")]
-    [SerializeField] private TMP_Text enemyNameText;
-    [SerializeField] private TMP_Text enemyHPText;
-    [SerializeField] private TMP_Text playerNameText;
-    [SerializeField] private TMP_Text playerHPText;
+    [SerializeField] private BattleUIController battleUIController;
 
     private bool isBattleActive = false;
 
@@ -26,37 +22,39 @@ public class GameModeController : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
         Instance = this;
+
+        explorationRoot.SetActive(true);
         battleRoot.SetActive(false);
+
+        isBattleActive = false;
     }
 
-    public void StartBattle(EnemyEncounter enemy, PlayerStats player)
+    public void StartBattle(
+        EnemyEncounter enemy,
+        PlayerStats player)
     {
         if (isBattleActive || enemy == null || player == null)
             return;
 
         isBattleActive = true;
 
-        //Enemy info
-        enemyNameText.text = enemy.EnemyName;
-        enemyHPText.text = "HP: " + enemy.MaxHP + " / " + enemy.MaxHP;
-
-        // Player info
-        playerNameText.text = player.PlayerName;
-        playerHPText.text = "HP: " + player.CurrentHP + " / " + player.MaxHP;
-
-        StartCoroutine(SwitchToBattle());
+        StartCoroutine(SwitchToBattle(enemy, player));
     }
 
-    private IEnumerator SwitchToBattle()
+    private IEnumerator SwitchToBattle(
+        EnemyEncounter enemy,
+        PlayerStats player)
     {
-        // czekamy na fizyczke zeby sie ogarnela
         yield return null;
 
-        battleRoot.SetActive(true);
         explorationRoot.SetActive(false);
+        battleRoot.SetActive(true);
 
-        Debug.Log("Battle STAAAART!");
+        battleUIController.ShowBattle(enemy, player);
+
+        Debug.Log("Battle Mode activated!");
     }
 
     public void ReturnToExploration()
@@ -64,13 +62,12 @@ public class GameModeController : MonoBehaviour
         if (!isBattleActive)
             return;
 
-        //chowamy battle screen
         battleRoot.SetActive(false);
-        //i siup do eksploracji
         explorationRoot.SetActive(true);
+
         isBattleActive = false;
 
-        Debug.Log("Returned to Exploration!");
+        Debug.Log("Returned to Exploration Mode!");
     }
 
     private void OnDestroy()

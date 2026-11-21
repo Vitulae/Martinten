@@ -7,7 +7,8 @@ public class EnemyEncounter : MonoBehaviour
     [Header("Enemy Info")]
     [SerializeField] private string enemyName = "Enemy";
     [SerializeField] private int maxHP = 15;
-
+    private int currentHP;
+    public int CurrentHP => currentHP;
     private bool encounterTriggered = false;
     public string EnemyName => enemyName;
     public int MaxHP => maxHP;
@@ -15,6 +16,12 @@ public class EnemyEncounter : MonoBehaviour
     private void Reset()
     {
         GetComponent<SphereCollider>().isTrigger = true;
+    }
+    
+    private void Awake()
+    {
+        maxHP = Mathf.Max(1, maxHP); //nie moze byc mniejsze niz 1
+        currentHP = maxHP;
     }
 
     private void OnTriggerEnter(Collider other)
